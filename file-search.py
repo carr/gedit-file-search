@@ -448,6 +448,11 @@ class SearchProcess:
             findCmd += ["(", "!", "-name", "*~", "!", "-name", ".#*.*", ")"]
         if query.excludeVCS:
             findCmd += ["(", "!", "-path", "*/CVS/*", "!", "-path", "*/.svn/*", "!", "-path", "*/.git/*", "!", "-path", "*/RCS/*", ")"]
+        # carr exclude log files
+        findCmd += ["(", "!", "-path", "*.log", ")"]
+        # carr exclude doc file
+        findCmd += ["(", "!", "-path", "*/doc/generated/*", ")"]
+
         if query.selectFileTypes:
             fileTypeList = query.parseFileTypeString()
             if fileTypeList:
@@ -1156,3 +1161,4 @@ class FileSearchPlugin(gedit.Plugin):
 
     def update_ui(self, window):
         self._instances[window].update_ui()
+
